@@ -25,7 +25,7 @@ public class CPPProjectType extends AbstractGenericProjectType
    @Override
    public Class<? extends UIWizardStep> getSetupFlow()
    {
-      return null;
+      return CPPProjectExecuteStep.class;
    }
 
    @Override

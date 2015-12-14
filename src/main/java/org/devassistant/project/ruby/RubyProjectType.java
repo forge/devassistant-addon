@@ -25,7 +25,7 @@ public class RubyProjectType extends AbstractGenericProjectType
    @Override
    public Class<? extends UIWizardStep> getSetupFlow()
    {
-      return null;
+      return RubyProjectExecuteStep.class;
    }
 
    @Override

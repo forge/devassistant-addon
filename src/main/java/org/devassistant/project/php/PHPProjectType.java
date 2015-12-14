@@ -25,7 +25,7 @@ public class PHPProjectType extends AbstractGenericProjectType
    @Override
    public Class<? extends UIWizardStep> getSetupFlow()
    {
-      return null;
+      return PHPProjectExecuteStep.class;
    }
 
    @Override
