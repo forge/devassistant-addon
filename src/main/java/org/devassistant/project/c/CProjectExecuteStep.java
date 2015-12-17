@@ -8,9 +8,8 @@
 package org.devassistant.project.c;
 
 import java.util.Calendar;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
+import org.devassistant.utils.Paths;
 import org.devassistant.utils.Resources;
 import org.jboss.forge.addon.projects.Project;
 import org.jboss.forge.addon.resource.DirectoryResource;
@@ -22,7 +21,6 @@ import org.jboss.forge.addon.ui.output.UIOutput;
 import org.jboss.forge.addon.ui.result.Result;
 import org.jboss.forge.addon.ui.result.Results;
 import org.jboss.forge.addon.ui.wizard.UIWizardStep;
-import org.jboss.forge.furnace.util.Streams;
 
 /**
  * Creates a project configured for the C language
@@ -43,9 +41,8 @@ public class CProjectExecuteStep extends AbstractUICommand implements UIWizardSt
       Project project = (Project) uiContext.getAttributeMap().get(Project.class);
       final DirectoryResource root = project.getRoot().reify(DirectoryResource.class);
       final String basename = root.getName();
-      // copy(FILES_PATH, root);
-      Resources.process(FILES_PATH, (path, contents) -> {
-         String name = path.getName(path.getNameCount() - 1).toString();
+      Paths.process(FILES_PATH, (path, contents) -> {
+         String name = Paths.getFileName(path);
          byte[] newContents = contents;
          switch (name)
          {
@@ -80,20 +77,11 @@ public class CProjectExecuteStep extends AbstractUICommand implements UIWizardSt
          }
          }
       });
-      // Execute post_create.sh
-      Process process = new ProcessBuilder("./post_create.sh")
-               .directory(root.getUnderlyingResourceObject()).start();
-      ExecutorService executor = Executors.newFixedThreadPool(2);
-      // Read std out
-      executor.submit(() -> Streams.write(process.getInputStream(), output.out()));
-      // Read std err
-      executor.submit(() -> Streams.write(process.getErrorStream(), output.err()));
-      executor.shutdown();
       Result result = null;
 
       try
       {
-         int returnCode = process.waitFor();
+         int returnCode = Resources.execute("./post_create.sh", root, output.out(), output.err());
          if (returnCode == 0)
          {
             result = Results.success();
@@ -107,10 +95,6 @@ public class CProjectExecuteStep extends AbstractUICommand implements UIWizardSt
       catch (InterruptedException ie)
       {
          result = Results.success("Command execution interrupted");
-      }
-      finally
-      {
-         process.destroy();
       }
       // Delete post_create.sh
       postCreate.delete();

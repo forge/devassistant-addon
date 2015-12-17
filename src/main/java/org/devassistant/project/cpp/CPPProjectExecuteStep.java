@@ -8,27 +8,24 @@
 package org.devassistant.project.cpp;
 
 import java.util.Calendar;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
+import org.devassistant.utils.Paths;
 import org.devassistant.utils.Resources;
 import org.jboss.forge.addon.projects.Project;
 import org.jboss.forge.addon.resource.DirectoryResource;
 import org.jboss.forge.addon.resource.FileResource;
-import org.jboss.forge.addon.ui.command.AbstractUICommand;
 import org.jboss.forge.addon.ui.context.UIContext;
 import org.jboss.forge.addon.ui.context.UIExecutionContext;
 import org.jboss.forge.addon.ui.output.UIOutput;
 import org.jboss.forge.addon.ui.result.Result;
 import org.jboss.forge.addon.ui.result.Results;
 import org.jboss.forge.addon.ui.wizard.UIWizardStep;
-import org.jboss.forge.furnace.util.Streams;
 
 /**
  *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
-public class CPPProjectExecuteStep extends AbstractUICommand implements UIWizardStep
+public class CPPProjectExecuteStep implements UIWizardStep
 {
    private static final String FILES_PATH = "/files/crt/cpp";
    private FileResource<?> postCreate;
@@ -42,8 +39,8 @@ public class CPPProjectExecuteStep extends AbstractUICommand implements UIWizard
       final DirectoryResource root = project.getRoot().reify(DirectoryResource.class);
       final String basename = root.getName();
       // copy(FILES_PATH, root);
-      Resources.process(FILES_PATH, (path, contents) -> {
-         String name = path.getName(path.getNameCount() - 1).toString();
+      Paths.process(FILES_PATH, (path, contents) -> {
+         String name = Paths.getFileName(path);
          byte[] newContents = contents;
          switch (name)
          {
@@ -78,20 +75,11 @@ public class CPPProjectExecuteStep extends AbstractUICommand implements UIWizard
          }
          }
       });
-      // Execute post_create.sh
-      Process process = new ProcessBuilder("./post_create.sh")
-               .directory(root.getUnderlyingResourceObject()).start();
-      ExecutorService executor = Executors.newFixedThreadPool(2);
-      // Read std out
-      executor.submit(() -> Streams.write(process.getInputStream(), output.out()));
-      // Read std err
-      executor.submit(() -> Streams.write(process.getErrorStream(), output.err()));
-      executor.shutdown();
       Result result = null;
 
       try
       {
-         int returnCode = process.waitFor();
+         int returnCode = Resources.execute("./post_create.sh", root, output.out(), output.err());
          if (returnCode == 0)
          {
             result = Results.success();
@@ -105,10 +93,6 @@ public class CPPProjectExecuteStep extends AbstractUICommand implements UIWizard
       catch (InterruptedException ie)
       {
          result = Results.success("Command execution interrupted");
-      }
-      finally
-      {
-         process.destroy();
       }
       // Delete post_create.sh
       postCreate.delete();
