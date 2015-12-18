@@ -39,7 +39,7 @@ public class CPPProjectExecuteStep implements UIWizardStep
       final DirectoryResource root = project.getRoot().reify(DirectoryResource.class);
       final String basename = root.getName();
       // copy(FILES_PATH, root);
-      Paths.process(FILES_PATH, (path, contents) -> {
+      Paths.process(FILES_PATH, (start, path, contents) -> {
          String name = Paths.getFileName(path);
          byte[] newContents = contents;
          switch (name)

@@ -12,12 +12,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.function.BiConsumer;
-import java.util.stream.Stream;
 
 /**
  *
@@ -25,6 +25,17 @@ import java.util.stream.Stream;
  */
 public class Paths
 {
+   /**
+    * Returns the file name for a given {@link Path} relative to another {@link Path}
+    * 
+    * @param path the path which the filename will be resolved
+    * @param start the start path
+    * @return
+    */
+   public static String getFileName(Path path, Path start)
+   {
+      return start.relativize(path).normalize().toString();
+   }
 
    /**
     * Returns the file name for a given {@link Path}
@@ -45,22 +56,23 @@ public class Paths
     * @throws IOException
     * @throws URISyntaxException
     */
-   public static void process(String source, BiConsumer<Path, byte[]> consumer)
+   public static void process(String source, TriConsumer<Path, Path, byte[]> consumer)
             throws IOException, URISyntaxException
    {
       URI resource = Resources.class.getClassLoader().getResource(source).toURI();
       try (FileSystem fileSystem = FileSystems.newFileSystem(resource, Collections.emptyMap()))
       {
          Path start = fileSystem.getPath(source);
-         try (Stream<Path> walk = Files.list(start))
+         Files.walkFileTree(start, new SimpleFileVisitor<Path>()
          {
-            for (Iterator<Path> it = walk.iterator(); it.hasNext();)
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
             {
-               Path filePath = it.next();
-               byte[] contents = Files.readAllBytes(filePath);
-               consumer.accept(filePath, contents);
+               byte[] contents = Files.readAllBytes(file);
+               consumer.accept(start, file, contents);
+               return FileVisitResult.CONTINUE;
             }
-         }
+         });
       }
    }
 

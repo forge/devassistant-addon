@@ -14,12 +14,12 @@ import org.jboss.forge.addon.ui.wizard.UIWizardStep;
  *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
-public class PerlProjectType extends AbstractGenericProjectType
+public class PerlBasicClassProjectType extends AbstractGenericProjectType
 {
    @Override
    public String getType()
    {
-      return "Perl (Dancer)";
+      return "Perl (Basic Class)";
    }
 
    @Override
@@ -31,7 +31,7 @@ public class PerlProjectType extends AbstractGenericProjectType
    @Override
    public String toString()
    {
-      return "perl-dancer";
+      return "perl-basic-class";
    }
 
 }

@@ -41,7 +41,7 @@ public class CProjectExecuteStep extends AbstractUICommand implements UIWizardSt
       Project project = (Project) uiContext.getAttributeMap().get(Project.class);
       final DirectoryResource root = project.getRoot().reify(DirectoryResource.class);
       final String basename = root.getName();
-      Paths.process(FILES_PATH, (path, contents) -> {
+      Paths.process(FILES_PATH, (start, path, contents) -> {
          String name = Paths.getFileName(path);
          byte[] newContents = contents;
          switch (name)
