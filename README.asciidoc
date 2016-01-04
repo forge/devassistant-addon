@@ -16,6 +16,8 @@ This addon provides *standalone* functionality.
 
 == Setup
 
+This Addon requires DevAssistant to be installed. See instructions on how to do that in http://devassistant.org/#GetStarted
+
 This Addon requires the following installation steps.
 
 === Install it using the Forge 
