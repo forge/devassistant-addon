@@ -5,21 +5,17 @@
  * http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.devassistant.project.c;
+package org.devassistant.project.perl;
 
 import org.devassistant.project.AbstractProjectExecuteStep;
 import org.jboss.forge.addon.ui.context.UIContext;
 
-/**
- * Creates a project configured for the C language
- * 
- * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
- */
-public class CProjectExecuteStep extends AbstractProjectExecuteStep
+public class PerlDancerClassExecuteStep extends AbstractProjectExecuteStep
 {
    @Override
    protected String[] getCommand(UIContext context, String projectName)
    {
-      return new String[] { "da", "create", "c", "-n", projectName };
+      return new String[] { "da", "create", "perl", "dancer", "-n", projectName };
    }
+
 }

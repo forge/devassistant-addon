@@ -7,35 +7,19 @@
 
 package org.devassistant.project.perl;
 
-import org.devassistant.utils.Paths;
-import org.devassistant.utils.Resources;
-import org.jboss.forge.addon.projects.Project;
-import org.jboss.forge.addon.resource.DirectoryResource;
+import org.devassistant.project.AbstractProjectExecuteStep;
 import org.jboss.forge.addon.ui.context.UIContext;
-import org.jboss.forge.addon.ui.context.UIExecutionContext;
-import org.jboss.forge.addon.ui.result.Result;
-import org.jboss.forge.addon.ui.wizard.UIWizardStep;
 
 /**
  *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
-public class PerlBasicClassExecuteStep implements UIWizardStep
+public class PerlBasicClassExecuteStep extends AbstractProjectExecuteStep
 {
-   private static final String FILES_PATH = "/files/crt/perl/class";
-
    @Override
-   public Result execute(UIExecutionContext context) throws Exception
+   protected String[] getCommand(UIContext context, String projectName)
    {
-      UIContext uiContext = context.getUIContext();
-      Project project = (Project) uiContext.getAttributeMap().get(Project.class);
-      final DirectoryResource root = project.getRoot().reify(DirectoryResource.class);
-
-      Paths.process(FILES_PATH, (start, path, contents) -> {
-         String name = Paths.getFileName(path, start);
-         Resources.setContents(root, name, contents);
-      });
-      return null;
+      return new String[] { "da", "create", "perl", "class", "-n", projectName };
    }
 
 }

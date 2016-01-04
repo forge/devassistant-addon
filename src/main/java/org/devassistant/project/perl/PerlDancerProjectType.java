@@ -14,7 +14,7 @@ import org.jboss.forge.addon.ui.wizard.UIWizardStep;
  *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
-public class PerlProjectType extends AbstractGenericProjectType
+public class PerlDancerProjectType extends AbstractGenericProjectType
 {
    @Override
    public String getType()
@@ -25,7 +25,7 @@ public class PerlProjectType extends AbstractGenericProjectType
    @Override
    public Class<? extends UIWizardStep> getSetupFlow()
    {
-      return PerlBasicClassExecuteStep.class;
+      return PerlDancerClassExecuteStep.class;
    }
 
    @Override
