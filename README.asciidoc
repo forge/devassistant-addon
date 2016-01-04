@@ -25,6 +25,26 @@ To use this addon, you must install it using the provided Forge command
 ----
 addon-install-from-git --url https://github.com/forge/devassistant-addon.git
 ----
+
+Then you can create a C project (for example) using the following command:  
+[source,java]
+----
+project-new --named demo --type c
+----
+
 == Features
-ProjectTypes for the projects in DevAssistant:: 
-PHP, Ruby, C, C++ and more
+ProjectTypes for the projects in DevAssistant::
+ 
+* C
+* C++ 
+* Python 
+** Django
+** Flask 
+** GTK3
+** Lib
+* Perl 
+** Basic Class
+** Dancer
+* PHP 
+** LAMP
+ * Ruby on Rails
