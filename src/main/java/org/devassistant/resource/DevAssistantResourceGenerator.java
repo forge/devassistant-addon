@@ -27,8 +27,9 @@ public class DevAssistantResourceGenerator implements ResourceGenerator<DevAssis
          // Do not handle non-file resources (yet)
          return false;
       }
-      String fileName = ((File) resource).getName().toLowerCase();
-      return fileName.equals(".devassistant");
+      File fileResource = (File) resource;
+      String fileName = fileResource.getName().toLowerCase();
+      return fileResource.isFile() && fileName.equals(".devassistant");
    }
 
    @SuppressWarnings("unchecked")

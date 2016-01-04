@@ -63,7 +63,7 @@ public class DevAssistantProjectProvider extends AbstractProjectProvider
          Resource<?> child = target.getChild(".devassistant");
          if (child instanceof FileResource && child.exists())
          {
-            result = true;
+            result = !((FileResource<?>) child).isDirectory();
          }
       }
       return result;
