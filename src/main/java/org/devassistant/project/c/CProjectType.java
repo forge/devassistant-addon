@@ -7,8 +7,12 @@
 
 package org.devassistant.project.c;
 
+import org.devassistant.project.AbstractProjectExecuteStep;
 import org.jboss.forge.addon.projects.generic.AbstractGenericProjectType;
-import org.jboss.forge.addon.ui.wizard.UIWizardStep;
+import org.jboss.forge.addon.ui.context.UIContext;
+import org.jboss.forge.addon.ui.context.UINavigationContext;
+import org.jboss.forge.addon.ui.result.NavigationResult;
+import org.jboss.forge.addon.ui.result.navigation.NavigationResultBuilder;
 
 /**
  *
@@ -23,9 +27,18 @@ public class CProjectType extends AbstractGenericProjectType
    }
 
    @Override
-   public Class<? extends UIWizardStep> getSetupFlow()
+   public NavigationResult next(UINavigationContext context)
    {
-      return CProjectExecuteStep.class;
+      NavigationResultBuilder builder = NavigationResultBuilder.create();
+      builder.add(new AbstractProjectExecuteStep()
+      {
+         @Override
+         protected String[] getCommand(UIContext context, String projectName)
+         {
+            return new String[] { "da", "create", "c", "-n", projectName };
+         }
+      });
+      return builder.build();
    }
 
    @Override

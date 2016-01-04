@@ -1,0 +1,10 @@
+org.devassistant.project.c.CProjectType
+org.devassistant.project.cpp.CPPProjectType
+org.devassistant.project.perl.PerlBasicClassProjectType
+org.devassistant.project.perl.PerlDancerProjectType
+org.devassistant.project.php.PHPProjectType
+org.devassistant.project.python.PythonDjangoProjectType
+org.devassistant.project.python.PythonFlaskProjectType
+org.devassistant.project.python.PythonGTK3ProjectType
+org.devassistant.project.python.PythonLibProjectType
+org.devassistant.project.ruby.RubyRailsProjectType
