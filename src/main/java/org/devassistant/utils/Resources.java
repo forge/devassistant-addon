@@ -8,11 +8,11 @@
 package org.devassistant.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.PrintStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.jboss.forge.addon.resource.DirectoryResource;
 import org.jboss.forge.addon.resource.FileResource;
 import org.jboss.forge.addon.resource.Resource;
 import org.jboss.forge.furnace.util.Streams;
@@ -24,11 +24,10 @@ import org.jboss.forge.furnace.util.Streams;
 public class Resources
 {
 
-   public static int execute(String command, DirectoryResource root, PrintStream out, PrintStream err) throws Exception
+   public static int execute(File root, PrintStream out, PrintStream err, String... commands) throws Exception
    {
       // Execute post_create.sh
-      Process process = new ProcessBuilder(command)
-               .directory(root.getUnderlyingResourceObject()).start();
+      Process process = new ProcessBuilder(commands).directory(root).start();
       ExecutorService executor = Executors.newFixedThreadPool(2);
       // Read std out
       executor.submit(() -> Streams.write(process.getInputStream(), out));
