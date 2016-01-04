@@ -32,7 +32,12 @@
       </dependency>
       <dependency>
          <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>projects-generic</artifactId>
+         <artifactId>parser-yaml</artifactId>
+         <classifier>forge-addon</classifier>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.forge.addon</groupId>
+         <artifactId>projects</artifactId>
          <classifier>forge-addon</classifier>
       </dependency>
       <dependency>

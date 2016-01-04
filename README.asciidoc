@@ -6,9 +6,15 @@ This addon provides *standalone* functionality.
 [options="header"]
 |===
 |Addon |Exported |Optional
-|projects-generic
+
+|projects
 |yes
 |no
+
+|parser-yaml
+|yes
+|no
+
 |ui
 |yes
 |no

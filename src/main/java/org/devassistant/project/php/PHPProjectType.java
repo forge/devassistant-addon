@@ -7,8 +7,8 @@
 
 package org.devassistant.project.php;
 
+import org.devassistant.project.AbstractDevAssistantProjectType;
 import org.devassistant.project.AbstractProjectExecuteStep;
-import org.jboss.forge.addon.projects.generic.AbstractGenericProjectType;
 import org.jboss.forge.addon.ui.context.UIContext;
 import org.jboss.forge.addon.ui.context.UINavigationContext;
 import org.jboss.forge.addon.ui.result.NavigationResult;
@@ -18,7 +18,7 @@ import org.jboss.forge.addon.ui.result.navigation.NavigationResultBuilder;
  *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
-public class PHPProjectType extends AbstractGenericProjectType
+public class PHPProjectType extends AbstractDevAssistantProjectType
 {
    @Override
    public String getType()
