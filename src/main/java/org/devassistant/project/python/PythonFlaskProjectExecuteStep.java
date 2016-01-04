@@ -5,7 +5,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.devassistant.project.php;
+package org.devassistant.project.python;
 
 import org.devassistant.project.AbstractProjectExecuteStep;
 import org.jboss.forge.addon.ui.context.UIContext;
@@ -14,11 +14,12 @@ import org.jboss.forge.addon.ui.context.UIContext;
  *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
-public class PHPProjectExecuteStep extends AbstractProjectExecuteStep
+public class PythonFlaskProjectExecuteStep extends AbstractProjectExecuteStep
 {
    @Override
    protected String[] getCommand(UIContext context, String projectName)
    {
-      return new String[] { "da", "create", "php", "lamp", "-n", projectName };
+      return new String[] { "da", "create", "python", "flask", "-n", projectName };
    }
+
 }

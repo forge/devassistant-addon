@@ -5,7 +5,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.devassistant.project.python;
+package org.devassistant.project.ruby;
 
 import org.jboss.forge.addon.projects.generic.AbstractGenericProjectType;
 import org.jboss.forge.addon.ui.wizard.UIWizardStep;
@@ -14,24 +14,24 @@ import org.jboss.forge.addon.ui.wizard.UIWizardStep;
  *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
-public class PythonProjectType extends AbstractGenericProjectType
+public class RubyRailsProjectType extends AbstractGenericProjectType
 {
    @Override
    public String getType()
    {
-      return "Python";
+      return "Ruby (Rails)";
    }
 
    @Override
    public Class<? extends UIWizardStep> getSetupFlow()
    {
-      return PythonProjectExecuteStep.class;
+      return RubyRailsProjectExecuteStep.class;
    }
 
    @Override
    public String toString()
    {
-      return "python";
+      return "ruby-rails";
    }
 
 }

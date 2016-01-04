@@ -9,6 +9,7 @@ package org.devassistant.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,7 +25,8 @@ import org.jboss.forge.furnace.util.Streams;
 public class Resources
 {
 
-   public static int execute(File root, PrintStream out, PrintStream err, String... commands) throws Exception
+   public static int execute(File root, PrintStream out, PrintStream err, String... commands)
+            throws InterruptedException, IOException
    {
       // Execute post_create.sh
       Process process = new ProcessBuilder(commands).directory(root).start();
